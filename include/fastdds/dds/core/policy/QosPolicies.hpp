@@ -89,9 +89,6 @@ public:
 
     virtual inline void clear() = 0;
 
-    static uint32_t get_cdr_serialized_size(
-            const std::vector<fastrtps::rtps::octet>& data);
-
 protected:
 
     bool send_always_;
@@ -660,11 +657,6 @@ public:
         hasChanged = false;
     }
 
-    virtual uint32_t cdr_serialized_size() const override
-    {
-        return QosPolicy::get_cdr_serialized_size(collection_);
-    }
-
     /**
      * Returns raw data vector.
      * @return raw data as vector of octets.
@@ -747,7 +739,7 @@ public:                                                                         
          * @param data data to copy in the newly created object \
          */                                                                            \
         RTPS_DllAPI TClassName(                                                            \
-            const TClassName &data) = default;                                         \
+            const TClassName& data) = default;                                         \
                                                                                        \
         /** \
          * Construct from underlying collection type. \
@@ -758,7 +750,7 @@ public:                                                                         
          * @param data data to copy in the newly created object \
          */                                                                            \
         RTPS_DllAPI TClassName(                                                            \
-            const collection_type &data)                                               \
+            const collection_type& data)                                               \
             : GenericDataQosPolicy(TPid, data)                                             \
         {                                                                                  \
         }                                                                                  \
@@ -775,7 +767,7 @@ public:                                                                         
          * @return reference to the current object. \
          */                                                                            \
         TClassName& operator =(                                                            \
-            const TClassName &b) = default;                                            \
+            const TClassName& b) = default;                                            \
                                                                                        \
     };
 
@@ -1098,8 +1090,6 @@ public:
     {
         return max_size_;
     }
-
-    virtual uint32_t cdr_serialized_size() const override;
 
     /**
      * Appends a name to the list of partition names.
@@ -1543,7 +1533,6 @@ public:
         std::swap(*this, reset);
     }
 
-    virtual uint32_t cdr_serialized_size() const override;
 };
 
 enum TypeConsistencyKind : uint16_t
@@ -1705,8 +1694,6 @@ public:
         *this = TypeIdV1();
     }
 
-    virtual uint32_t cdr_serialized_size() const override;
-
     RTPS_DllAPI TypeIdV1& operator =(
             const fastrtps::types::TypeIdentifier& type_id)
     {
@@ -1783,8 +1770,6 @@ public:
     {
         *this = TypeObjectV1();
     }
-
-    virtual uint32_t cdr_serialized_size() const override;
 
     RTPS_DllAPI TypeObjectV1& operator =(
             const fastrtps::types::TypeObject& type_object)
@@ -1869,8 +1854,6 @@ public:
     {
         *this = TypeInformation();
     }
-
-    virtual uint32_t cdr_serialized_size() const override;
 
     RTPS_DllAPI bool assigned() const
     {
