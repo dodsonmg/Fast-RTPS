@@ -38,6 +38,9 @@
 #include <net/if.h>
 #endif
 
+#if __FreeBSD__
+#include <netinet/in.h>
+#endif
 
 using namespace eprosima::fastrtps::rtps;
 
